@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: student-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: studentdb
+      MYSQL_USER: studentuser
+      MYSQL_PASSWORD: studentpass
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - student-network
+
+  student-service:
+    image: usuariodockerhub/hf-232-01-aixa-gonzales:latest
+    container_name: student-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8090"
+    environment:
+      - SERVER_PORT=8090
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=studentdb
+      - DB_USER=studentuser
+      - DB_PASSWORD=studentpass
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - student-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: student-nginx
+    ports:
+      - "8092:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - student-service
+    networks:
+      - student-network
+
+volumes:
+  mysql-data:
+
+networks:
+  student-network:
+    driver: bridge
