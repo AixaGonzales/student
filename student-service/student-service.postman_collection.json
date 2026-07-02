@@ -1,0 +1,162 @@
+{
+  "info": {
+    "name": "Student Service API - Hackathon",
+    "description": "Colección de endpoints para probar el CRUD del microservicio student-service en local, Docker, Docker Compose y Kubernetes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8090",
+      "type": "string"
+    },
+    {
+      "key": "docker_url",
+      "value": "http://localhost:8091",
+      "type": "string"
+    },
+    {
+      "key": "nginx_url",
+      "value": "http://localhost:8092",
+      "type": "string"
+    },
+    {
+      "key": "k8s_url",
+      "value": "http://localhost:9094",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Listar Estudiantes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v1/api/student/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "student",
+            "list"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 Buscar Estudiante por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v1/api/student/find/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "student",
+            "find",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 Registrar Estudiante",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dni\": \"12345678\",\n  \"firstName\": \"Aixa\",\n  \"lastName\": \"Gonzales\",\n  \"promotion\": \"2026-I\",\n  \"date\": \"2026-07-02\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/student/register",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "student",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 Actualizar Estudiante",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dni\": \"12345678\",\n  \"firstName\": \"Aixa Editado\",\n  \"lastName\": \"Gonzales Perez\",\n  \"promotion\": \"2026-II\",\n  \"date\": \"2026-07-02\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/student/update/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "student",
+            "update",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 Eliminar Estudiante",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v1/api/student/delete/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "student",
+            "delete",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -22,7 +22,7 @@ services:
       - student-network
 
   student-service:
-    image: usuariodockerhub/hf-232-01-aixa-gonzales:latest
+    image: aixa949/hf-232-01-aixa-gonzales:latest
     container_name: student-backend
     build:
       context: .

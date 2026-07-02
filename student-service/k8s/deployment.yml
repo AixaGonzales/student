@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: student-service
-          image: usuariodockerhub/hf-232-01-aixa-gonzales:latest
+          image: aixa949/hf-232-01-aixa-gonzales:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8093

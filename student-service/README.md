@@ -333,7 +333,7 @@ Almacena credenciales o datos sensibles codificados en Base64. En este caso, gua
 ### `deployment.yml`
 Define el estado deseado de los pods.
 - **Réplicas**: 3 pods idénticos para balancear la carga y asegurar alta disponibilidad.
-- **Imagen**: Apunta a `usuariodockerhub/hf-232-01-aixa-gonzales:latest`.
+- **Imagen**: Apunta a `aixa949/hf-232-01-aixa-gonzales:latest`.
 - **Puerto**: Levanta en el puerto `8093` alimentándose dinámicamente de la variable de entorno `SERVER_PORT` cargada desde el `Secret` `aixa-secret`.
 
 ### `service.yml`
@@ -379,13 +379,13 @@ docker compose down
 ### Comandos de Docker Hub
 ```bash
 # Construir la imagen localmente especificando la etiqueta de Docker Hub
-docker build -t usuariodockerhub/hf-232-01-aixa-gonzales:latest .
+docker build -t aixa949/hf-232-01-aixa-gonzales:latest .
 
 # Iniciar sesión en Docker Hub
 docker login
 
 # Subir la imagen a su repositorio
-docker push usuariodockerhub/hf-232-01-aixa-gonzales:latest
+docker push aixa949/hf-232-01-aixa-gonzales:latest
 ```
 
 ### Comandos de Kubernetes
