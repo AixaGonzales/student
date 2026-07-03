@@ -1,0 +1,152 @@
+<main class="pagina-estudiantes">
+  <section class="contenedor-principal">
+    <header class="encabezado">
+      <div>
+        <h1 class="titulo">Gestion de estudiantes</h1>
+        <p class="subtitulo">CRUD conectado al backend de Spring Boot.</p>
+      </div>
+
+      <button class="boton boton-secundario" type="button" (click)="listarEstudiantes()">
+        Recargar
+      </button>
+    </header>
+
+    <div class="zona-mensajes">
+      <p class="mensaje-exito" *ngIf="mensaje">{{ mensaje }}</p>
+      <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+      <p class="mensaje-carga" *ngIf="cargando">Cargando...</p>
+    </div>
+
+    <section class="panel-busqueda">
+      <label class="campo">
+        <span class="etiqueta">Buscar por ID</span>
+        <input
+          class="entrada"
+          type="number"
+          min="1"
+          [(ngModel)]="idBusqueda"
+          placeholder="Ejemplo: 1"
+        />
+      </label>
+
+      <button class="boton boton-primario" type="button" (click)="buscarEstudiante()">
+        Buscar
+      </button>
+    </section>
+
+    <section class="contenido">
+      <form class="formulario-estudiante" #formulario="ngForm" (ngSubmit)="guardarEstudiante()">
+        <h2 class="titulo-seccion">
+          {{ editando ? 'Actualizar estudiante' : 'Registrar estudiante' }}
+        </h2>
+
+        <label class="campo">
+          <span class="etiqueta">DNI</span>
+          <input
+            class="entrada"
+            name="dni"
+            required
+            minlength="8"
+            maxlength="20"
+            [(ngModel)]="estudiante.dni"
+          />
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Nombre</span>
+          <input
+            class="entrada"
+            name="firstName"
+            required
+            maxlength="50"
+            [(ngModel)]="estudiante.firstName"
+          />
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Apellido</span>
+          <input
+            class="entrada"
+            name="lastName"
+            required
+            maxlength="50"
+            [(ngModel)]="estudiante.lastName"
+          />
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Promocion</span>
+          <input
+            class="entrada"
+            name="promotion"
+            required
+            [(ngModel)]="estudiante.promotion"
+          />
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Fecha</span>
+          <input
+            class="entrada"
+            name="date"
+            type="date"
+            required
+            [(ngModel)]="estudiante.date"
+          />
+        </label>
+
+        <div class="acciones-formulario">
+          <button class="boton boton-primario" type="submit" [disabled]="formulario.invalid">
+            {{ editando ? 'Actualizar' : 'Registrar' }}
+          </button>
+
+          <button class="boton boton-secundario" type="button" (click)="limpiarFormulario()">
+            Limpiar
+          </button>
+        </div>
+      </form>
+
+      <section class="tabla-estudiantes">
+        <h2 class="titulo-seccion">Lista de estudiantes</h2>
+
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Promocion</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of estudiantes">
+                <td>{{ item.id }}</td>
+                <td>{{ item.dni }}</td>
+                <td>{{ item.firstName }}</td>
+                <td>{{ item.lastName }}</td>
+                <td>{{ item.promotion }}</td>
+                <td>{{ item.date }}</td>
+                <td class="acciones-tabla">
+                  <button class="boton-tabla boton-editar" type="button" (click)="editarEstudiante(item)">
+                    Editar
+                  </button>
+                  <button class="boton-tabla boton-eliminar" type="button" (click)="eliminarEstudiante(item.id)">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+
+              <tr *ngIf="estudiantes.length === 0 && !cargando">
+                <td class="sin-datos" colspan="7">No hay estudiantes registrados.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </section>
+</main>
